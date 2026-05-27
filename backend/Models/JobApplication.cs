@@ -8,6 +8,8 @@ public class JobApplication
 
     public string PositionTitle { get; set; } = string.Empty;
 
+    public string? JobUrl { get; set; }
+
     public string Status { get; set; } = "Applied";
 
     public DateTime AppliedDate { get; set; } = DateTime.UtcNow;

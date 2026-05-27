@@ -28,12 +28,27 @@ public class JobApplicationsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<JobApplication>> Create(JobApplicationCreateDTO dto)
     {
+        var exists = await _context.JobApplications.AnyAsync(j =>
+            j.CompanyName.ToLower() == dto.CompanyName.ToLower() &&
+            j.PositionTitle.ToLower() == dto.PositionTitle.ToLower()
+
+        );
+
+        if (exists)
+        {
+            return Conflict(new
+            {
+                message = "A job application for this company and position already exists."
+            });
+        }
+
         var jobApplication = new JobApplication
         {
             CompanyName = dto.CompanyName,
             PositionTitle = dto.PositionTitle,
             Status = dto.Status,
             AppliedDate = dto.AppliedDate,
+            JobUrl = dto.JobUrl,
             Notes = dto.Notes
         };
 

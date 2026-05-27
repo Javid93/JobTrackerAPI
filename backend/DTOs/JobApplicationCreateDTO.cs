@@ -12,10 +12,17 @@ public class JobApplicationCreateDTO
     [MaxLength(100)]
     public string PositionTitle { get; set; } = string.Empty;
 
+    [Url]
     [Required]
-    public string Status { get; set; } = "Applied";
+    [MaxLength(500)]
+    public string JobUrl { get; set; } = string.Empty;
+
+
+    [Required]
+    public string Status { get; set; } = string.Empty;
 
     public DateTime AppliedDate { get; set; } = DateTime.UtcNow;
+
 
     [MaxLength(500)]
     public string? Notes { get; set; }
